@@ -25,22 +25,18 @@ public class CitiesController : CustomControllerBase  //usiamo come base la nost
         return cities;
     }
 
-
     // GET: api/Cities/5
     [HttpGet("{cityID}")]
     public async Task<ActionResult<City>> GetCity(Guid cityID)
     {
         var city = await _context.Cities.FirstOrDefaultAsync(temp => temp.CityId == cityID);
-
         if (city == null)
         {
             return NotFound();
         }
-
         return city;
         //return Ok(city)  questo lo fai solo se usi Iactionresult invece di class actionresult
     }
-
 
     // PUT: api/Cities/5
     [HttpPut("{cityID}")]
@@ -50,15 +46,12 @@ public class CitiesController : CustomControllerBase  //usiamo come base la nost
         {
             return BadRequest(); //HTTP 400
         }
-
         var existingCity = await _context.Cities.FindAsync(cityID);
         if (existingCity == null)
         {
             return NotFound(); //HTTP 404
         }
-
         existingCity.CityName = city.CityName;
-
         try
         {
             await _context.SaveChangesAsync();
@@ -74,10 +67,8 @@ public class CitiesController : CustomControllerBase  //usiamo come base la nost
                 throw;
             }
         }
-
         return NoContent();
     }
-
 
     // POST: api/Cities
     [HttpPost]
@@ -93,7 +84,6 @@ public class CitiesController : CustomControllerBase  //usiamo come base la nost
         return CreatedAtAction("GetCity", new { cityID = city.CityId }, city); //api/Cities/67d28f3d-43eb-49c7-916c-5b39172955e5
     }
 
-
     // DELETE: api/Cities/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCity(Guid id)
@@ -103,13 +93,11 @@ public class CitiesController : CustomControllerBase  //usiamo come base la nost
         {
             return NotFound(); //HTTP 404
         }
-
         _context.Cities.Remove(city);
         await _context.SaveChangesAsync();
 
         return NoContent(); //HTTP 200
     }
-
 
     private bool CityExists(Guid id)
     {
