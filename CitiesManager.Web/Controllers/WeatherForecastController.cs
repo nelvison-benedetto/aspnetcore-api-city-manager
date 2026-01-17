@@ -22,5 +22,6 @@ namespace CitiesManager.Web.Controllers
             })
             .ToArray();
         }
+
     }
 }
